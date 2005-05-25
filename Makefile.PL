@@ -1,7 +1,20 @@
+# $Id$
 use ExtUtils::MakeMaker;
-# See lib/ExtUtils/MakeMaker.pm for details of how to influence
-# the contents of the Makefile that is written.
+
+eval "use Test::Manifest";
+
 WriteMakefile(
-    'NAME'	=> 'Chemistry::Elements',
-    'VERSION_FROM' => 'Elements.pm', # finds $VERSION
-);
+	'NAME'	       => 'Chemistry::Elements',
+	'VERSION_FROM' => 'Elements.pm',
+
+	'PM'           => {
+		'Elements.pm'         => '$(INST_LIBDIR)/Elements.pm',
+		},
+
+	'MAN3PODS'     => {
+		'Elements.pm' => '$(INST_MAN3DIR)/Chemistry::Elements.3',
+		},
+
+	clean  => { FILES    => q|Chemistry-Elements-*| },
+
+	);

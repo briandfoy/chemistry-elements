@@ -10,9 +10,7 @@ require Exporter;
 @ISA       = qw(Exporter);
 @EXPORT_OK = qw(get_Z get_symbol get_name);
 @EXPORT    = qw();
-$VERSION   = 0.91;
-
-sub Version { return $VERSION };
+$VERSION   = 1.00;
 
 use subs qw(_get_name_by_Z
             _get_symbol_by_Z
@@ -671,11 +669,36 @@ any of the three affects the other two.
 
    $name          = $element->name; # $name is 'Gold'
 
-=head1 EXPORTABLE FUNCTIONS
+=head2 Instance methods
+
+=over 4
+
+=item new( Z | SYMBOL | NAME )
+
+Create a new instance from either the atomic number, symbol, or
+element name.
+
+=item Z
+
+Return the atomic number of the element.
+
+=item name
+
+Return the name of the element.
+
+=item symbol
+
+Return the symbol of the element.
+
+=back
+
+=head2 Exportable functions
 
 These functions can be exported.  They are not exported by default.
 
-=head2 get_symbol()
+=over 4
+
+=item get_symbol()
 
 This function attempts to return the symbol of the chemical element given
 either the chemical symbol, element name, or atmoic number.  The
@@ -705,7 +728,7 @@ will try its best despite the case of the input data).
 You can modify the symbols (e.g. you work for UCal ;) ) by changing
 the data at the end of this module.
 
-=head2 get_name()
+=item get_name()
 
 This function attempts to return the name the chemical element given
 either the chemical symbol, element name, or atomic number.  The
@@ -733,7 +756,7 @@ will try its best despite the case of the input data).
 You can modify the names (e.g. for different languages) by changing
 the data at the end of this module.
 
-=head2 get_Z()
+=item get_Z()
 
 This function attempts to return the atomic number of the chemical
 element given either the chemical symbol, element name, or atomic
@@ -758,6 +781,8 @@ will be false save for the case when $string is undefined).
 		{
 		#stuff
 		}
+
+=back
 
 The package constructor automatically finds the largest defined
 atomic number (in case you add your own heavy elements).
@@ -794,8 +819,14 @@ language or a different perspective on the heavy elements).  If
 anyone should make changes to the data, i would like to get a copy
 so that i can include it in future releases :)
 
+=head1 COPYRIGHT
+
+Copright 2005, brian d foy
+
+You can use this module under the same terms as Perl itself.
+
 =head1 AUTHOR
 
-brian d foy <comdog@panix.com>
+brian d foy, CC< <bdfoy@cpan.org> >>
 
 =cut
