@@ -1,6 +1,11 @@
 Changes
-MANIFEST
-Makefile.PL
-Elements.pm
-README
 chart_test
+Elements.pm
+Makefile.PL
+MANIFEST
+META.yml			Module meta-data (added by MakeMaker)
+README
+t/compile.t
+t/pod.t
+t/pod_coverage.t
+t/test_manifest
