@@ -10,7 +10,7 @@ require Exporter;
 @ISA       = qw(Exporter);
 @EXPORT_OK = qw(get_Z get_symbol get_name);
 @EXPORT    = qw();
-$VERSION   = 1.01;
+$VERSION   = 1.02;
 
 use subs qw(_get_name_by_Z
             _get_symbol_by_Z
@@ -819,14 +819,15 @@ language or a different perspective on the heavy elements).  If
 anyone should make changes to the data, i would like to get a copy
 so that i can include it in future releases :)
 
-=head1 COPYRIGHT
-
-Copright 2005, brian d foy
-
-You can use this module under the same terms as Perl itself.
-
 =head1 AUTHOR
 
-brian d foy, CC< <bdfoy@cpan.org> >>
+brian d foy, C<< <bdfoy@cpan.org> >>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2000-2007 brian d foy.  All rights reserved.
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut

@@ -1,17 +1,18 @@
 # $Id$
 use ExtUtils::MakeMaker;
 
-eval "use Test::Manifest";
+eval "use Test::Manifest 1.14";
 
 WriteMakefile(
-	'NAME'	       => 'Chemistry::Elements',
-	'VERSION_FROM' => 'Elements.pm',
+	'NAME'			=> 'Chemistry::Elements',
+	'VERSION_FROM'	=> 'Elements.pm',
+	'LICENSE'		=> 'perl',
 
-	'PM'           => {
+	'PM'			=> {
 		'Elements.pm'         => '$(INST_LIBDIR)/Elements.pm',
 		},
 
-	'MAN3PODS'     => {
+	'MAN3PODS'		=> {
 		'Elements.pm' => '$(INST_MAN3DIR)/Chemistry::Elements.3',
 		},
 
