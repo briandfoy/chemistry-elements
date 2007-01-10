@@ -10,7 +10,7 @@ require Exporter;
 @ISA       = qw(Exporter);
 @EXPORT_OK = qw(get_Z get_symbol get_name);
 @EXPORT    = qw();
-$VERSION   = 1.02;
+$VERSION   = 1.03;
 
 use subs qw(_get_name_by_Z
             _get_symbol_by_Z
@@ -825,7 +825,7 @@ brian d foy, C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2000-2007 brian d foy.  All rights reserved.
+Copyright (c) 2000-2007 brian d foy. All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
