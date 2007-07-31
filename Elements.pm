@@ -1,7 +1,6 @@
 package Chemistry::Elements;
 
 use strict;
-require 5.003;
 use vars qw($VERSION @ISA @EXPORT @EXPORT_OK $AUTOLOAD
              $debug %names %elements $maximum_Z);
 
@@ -10,7 +9,7 @@ require Exporter;
 @ISA       = qw(Exporter);
 @EXPORT_OK = qw(get_Z get_symbol get_name);
 @EXPORT    = qw();
-$VERSION   = 1.03;
+$VERSION   = 1.04;
 
 use subs qw(_get_name_by_Z
             _get_symbol_by_Z

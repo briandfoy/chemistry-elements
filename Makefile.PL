@@ -7,6 +7,7 @@ WriteMakefile(
 	'NAME'			=> 'Chemistry::Elements',
 	'VERSION_FROM'	=> 'Elements.pm',
 	'LICENSE'		=> 'perl',
+	'AUTHOR'        => 'brian d foy <bdfoy@cpan.org>',
 
 	'PM'			=> {
 		'Elements.pm'         => '$(INST_LIBDIR)/Elements.pm',
