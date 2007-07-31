@@ -1,5 +1,8 @@
 Revision history for Perl extension Chemistry::Elements.
 
+1.04 - Mon Jul 30 19:48:04 2007
+	* Updated distro to use new subversion repo, and for kwalitee
+
 1.03 - Tue Jan  9 23:19:06 2007
 	* updated copyright and license info
 	* no code changes, so no need to upgrade
