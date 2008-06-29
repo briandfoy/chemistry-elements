@@ -35,9 +35,8 @@ use subs qw(
 
 BEGIN {
 my @class_methods  = qw(can isa);
-my %class_methods = map { $_, 1 } @class_methods;
-
 my @object_methods = qw(new Z name symbol can);
+my %class_methods  = map { $_, 1 } @class_methods;
 my %object_methods = map { $_, 1 } @object_methods;
 
 sub can
@@ -53,6 +52,11 @@ sub can
 		}
 		
 	return 1;
+	}
+	
+sub _add_object_method # everyone gets it
+	{
+	$object_methods{ $_[1] } = 1;
 	}
 }
 
@@ -565,18 +569,14 @@ sub AUTOLOAD
 
 	$method_name =~ s/.*:://;
 
-	if( $data )
-		{
-		$self->{$method_name} = $data;
-		}
-	elsif( defined $self->{$method_name} )
-		{
-		return $self->{$method_name};
-		}
-	else
-		{
-		return;
-		}
+	if( $data )                         
+		{ # only add new method if they add data
+	   	$self->{$method_name} = $data; 
+	   	$self->_add_object_method( $method_name );
+	   	}
+	elsif( defined $self->{$method_name} ) { return $self->{$method_name}  }
+	else                                   { return }
+
 	}
 
 1;
