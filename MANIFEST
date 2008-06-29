@@ -1,9 +1,5 @@
-.cvsignore
-.DS_Store
-.releaserc
-.svnignore
 Changes
-chart_test
+examples/chart_test
 Elements.pm
 examples/README
 LICENSE
