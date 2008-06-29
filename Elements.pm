@@ -622,9 +622,9 @@ pass it an atomic number, chemical symbol, or element name and it
 tries to create the object.
 
   # the constructor can use different input
-  $element = new Chemistry::Elements $atomic_number;
-  $element = new Chemistry::Elements $chemical_symbol;
-  $element = new Chemistry::Elements $element_name;
+  $element = Chemistry::Elements->new( $atomic_number );
+  $element = Chemistry::Elements->new( $chemical_symbol );
+  $element = Chemistry::Elements->new( $element_name );
 
 once you have the object, you can define your own methods simply
 by using them.  Giving the method an argument (others will be
@@ -646,7 +646,7 @@ retrieved in the same way.
 These methods can also be used to set values, although changing
 any of the three affects the other two.
 
-   $element       = new Chemistry::Elements('Lead');
+   $element       = Chemistry::Elements->new('Lead');
 
    $atomic_number = $element->Z;    # $atomic_number is 82
 
@@ -684,11 +684,12 @@ Return the symbol of the element.
 
 =head2 Exportable functions
 
-These functions can be exported.  They are not exported by default.
+These functions can be exported.  They are not exported by default. At the
+moment, only the functional interface supports multi-language names.
 
 =over 4
 
-=item get_symbol( SYMBOL [, LANGUAGE] )
+=item get_symbol( NAME|Z )
 
 This function attempts to return the symbol of the chemical element given
 either the chemical symbol, element name, or atmoic number.  The
@@ -800,6 +801,10 @@ I had thought about providing basic data for the elements, but
 thought that anyone using this module would probably have their
 own data.  If there is an interest in canned data, perhaps I can
 provide mine :)
+
+=head2 Localization support
+
+XXX: Fill this stuff in later. For now see the test suite
 
 =head1 TO DO
 
