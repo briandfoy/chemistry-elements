@@ -4,8 +4,13 @@ use strict;
 use warnings;
 no warnings;
 
+use Carp qw(croak carp);
+use Scalar::Util qw(blessed);
+
 use vars qw($VERSION @ISA @EXPORT @EXPORT_OK $AUTOLOAD
-             $debug %names %elements $maximum_Z);
+             $debug %names %elements $maximum_Z
+             %names_to_Z $Default_language %Languages
+            );
 
 require Exporter;
 
@@ -14,134 +19,179 @@ require Exporter;
 @EXPORT    = qw();
 $VERSION   = 1.05;
 
-use subs qw(_get_name_by_Z
-            _get_symbol_by_Z
-            _get_name_by_symbol
-            _get_Z_by_symbol
-            _get_symbol_by_name
-            _get_Z_by_name
-            _is_Z
-            _is_name
-            _is_symbol
-            _format_name
-            _format_symbol
-            );
+use subs qw(
+	_get_name_by_Z
+	_get_symbol_by_Z
+	_get_name_by_symbol
+	_get_Z_by_symbol
+	_get_symbol_by_name
+	_get_Z_by_name
+	_is_Z
+	_is_name
+	_is_symbol
+	_format_name
+	_format_symbol
+	);
 
+BEGIN {
+my @class_methods  = qw(can isa);
+my %class_methods = map { $_, 1 } @class_methods;
+
+my @object_methods = qw(new Z name symbol can);
+my %object_methods = map { $_, 1 } @object_methods;
+
+sub can
+	{
+	my $thingy = shift;
+	my @methods = @_;
+
+	my $method_hash = blessed $thingy ? \%object_methods : \%class_methods ;
+	
+	foreach my $method ( @methods )
+		{
+		return unless exists $method_hash->{ $method };
+		}
+		
+	return 1;
+	}
+}
 
 $debug = 0;
 
+%Languages = (
+	'Pig Latin' => 0,
+	'English'   => 1,
+	);
+
+$Default_language = $Languages{'English'};
+
+	
 %names =
 (
-  1 => 'Hydrogen',
-  2 => 'Helium',
-  3 => 'Lithium',
-  4 => 'Beryllium',
-  5 => 'Boron',
-  6 => 'Carbon',
-  7 => 'Nitrogen',
-  8 => 'Oxygen',
-  9 => 'Fluorine',
- 10 => 'Neon',
- 11 => 'Sodium',
- 12 => 'Magnesium',
- 13 => 'Aluminium',
- 14 => 'Silicon',
- 15 => 'Phosphorous',
- 16 => 'Sulfur',
- 17 => 'Chlorine',
- 18 => 'Argon',
- 19 => 'Potassium',
- 20 => 'Calcium',
- 21 => 'Scandium',
- 22 => 'Titanium',
- 23 => 'Vanadium',
- 24 => 'Chromium',
- 25 => 'Manganese',
- 26 => 'Iron',
- 27 => 'Cobolt',
- 28 => 'Nickel',
- 29 => 'Copper',
- 30 => 'Zinc',
- 31 => 'Gallium',
- 32 => 'Germanium',
- 33 => 'Arsenic',
- 34 => 'Selenium',
- 35 => 'Bromine',
- 36 => 'Krypton',
- 37 => 'Rubidium',
- 38 => 'Strontium',
- 39 => 'Yttrium',
- 40 => 'Zirconium',
- 41 => 'Nobium',
- 42 => 'Molybdenum',
- 43 => 'Technetium',
- 44 => 'Ruthenium',
- 45 => 'Rhodium',
- 46 => 'Paladium',
- 47 => 'Silver',
- 48 => 'Cadmium',
- 49 => 'Indium',
- 50 => 'Tin',
- 51 => 'Antimony',
- 52 => 'Tellurium',
- 53 => 'Iodine',
- 54 => 'Xenon',
- 55 => 'Cesium',
- 56 => 'Barium',
- 57 => 'Lanthanum',
- 58 => 'Cerium',
- 59 => 'Praesodium',
- 60 => 'Neodymium',
- 61 => 'Promethium',
- 62 => 'Samarium',
- 63 => 'Europium',
- 64 => 'Gadolinium',
- 65 => 'Terbium',
- 66 => 'Dysprosium',
- 67 => 'Holmium',
- 68 => 'Erbium',
- 69 => 'Thulium',
- 70 => 'Ytterbium',
- 71 => 'Lutetium',
- 72 => 'Hafnium',
- 73 => 'Tantalum',
- 74 => 'Tungsten',
- 75 => 'Rhenium',
- 76 => 'Osmium',
- 77 => 'Iridium',
- 78 => 'Platinum',
- 79 => 'Gold',
- 80 => 'Mercury',
- 81 => 'Thalium',
- 82 => 'Lead',
- 83 => 'Bismuth',
- 84 => 'Polonium',
- 85 => 'Astatine',
- 86 => 'Radon',
- 87 => 'Francium',
- 88 => 'Radium',
- 89 => 'Actinum',
- 90 => 'Thorium',
- 91 => 'Protactinium',
- 92 => 'Uranium',
- 93 => 'Neptunium',
- 94 => 'Plutonium',
- 95 => 'Americium',
- 96 => 'Curium',
- 97 => 'Berkelium',
- 98 => 'Californium',
- 99 => 'Einsteinium',
-100 => 'Fermium',
-101 => 'Mendelevium',
-102 => 'Nobelium',
-103 => 'Lawerencium',
-104 => 'Rutherfordium',
-105 => 'Dubnium',
-106 => 'Seaborgium',
-107 => 'Bohrium',
-108 => 'Hassium',
-109 => 'Meitnerium'
+  1 => [ qw( Ydrogenhai Hydrogen ) ],
+  2 => [ qw( Eliumhai Helium ) ],
+  3 => [ qw( Ithiumlai Lithium ) ],
+  4 => [ qw( Erylliumbai Beryllium ) ],
+  5 => [ qw( Oronbai Boron ) ],
+  6 => [ qw( Arboncai Carbon ) ],
+  7 => [ qw( Itrogennai Nitrogen ) ],
+  8 => [ qw( Xygenoai Oxygen ) ],
+  9 => [ qw( Luorinefai Fluorine ) ],
+ 10 => [ qw( Eonnai Neon ) ],
+ 11 => [ qw( Odiumsai Sodium ) ],
+ 12 => [ qw( Agnesiummai Magnesium ) ],
+ 13 => [ qw( Luminiumaai Aluminium ) ],
+ 14 => [ qw( Iliconsai Silicon ) ],
+ 15 => [ qw( Hosphorouspai Phosphorous ) ],
+ 16 => [ qw( Ulfursai Sulfur ) ],
+ 17 => [ qw( Hlorinecai Chlorine ) ],
+ 18 => [ qw( Rgonaai Argon ) ],
+ 19 => [ qw( Otassiumpai Potassium ) ],
+ 20 => [ qw( Alciumcai Calcium ) ],
+ 21 => [ qw( Candiumsai Scandium ) ],
+ 22 => [ qw( Itaniumtai Titanium ) ],
+ 23 => [ qw( Anadiumvai Vanadium ) ],
+ 24 => [ qw( Hromiumcai Chromium ) ],
+ 25 => [ qw( Anganesemai Manganese ) ],
+ 26 => [ qw( Roniai Iron ) ],
+ 27 => [ qw( Oboltcai Cobolt ) ],
+ 28 => [ qw( Ickelnai Nickel ) ],
+ 29 => [ qw( Oppercai Copper ) ],
+ 30 => [ qw( Inczai Zinc ) ],
+ 31 => [ qw( Alliumgai Gallium ) ],
+ 32 => [ qw( Ermaniumgai Germanium ) ],
+ 33 => [ qw( Rsenicaai Arsenic ) ],
+ 34 => [ qw( Eleniumsai Selenium ) ],
+ 35 => [ qw( Rominebai Bromine ) ],
+ 36 => [ qw( Ryptonkai Krypton ) ],
+ 37 => [ qw( Ubidiumrai Rubidium ) ],
+ 38 => [ qw( Trontiumsai Strontium ) ],
+ 39 => [ qw( Ttriumyai Yttrium ) ],
+ 40 => [ qw( Irconiumzai Zirconium ) ],
+ 41 => [ qw( Obiumnai Nobium ) ],
+ 42 => [ qw( Olybdenummai Molybdenum ) ],
+ 43 => [ qw( Echnetiumtai Technetium ) ],
+ 44 => [ qw( Utheniumrai Ruthenium ) ],
+ 45 => [ qw( Hodiumrai Rhodium ) ],
+ 46 => [ qw( Aladiumpai Paladium ) ],
+ 47 => [ qw( Ilversai Silver ) ],
+ 48 => [ qw( Admiumcai Cadmium ) ],
+ 49 => [ qw( Ndiumiai Indium ) ],
+ 50 => [ qw( Intai Tin ) ],
+ 51 => [ qw( Ntimonyaai Antimony ) ],
+ 52 => [ qw( Elluriumtai Tellurium ) ],
+ 53 => [ qw( Odineiai Iodine ) ],
+ 54 => [ qw( Enonxai Xenon ) ],
+ 55 => [ qw( Esiumcai Cesium ) ],
+ 56 => [ qw( Ariumbai Barium ) ],
+ 57 => [ qw( Anthanumlai Lanthanum ) ],
+ 58 => [ qw( Eriumcai Cerium ) ],
+ 59 => [ qw( Raesodiumpai Praesodium ) ],
+ 60 => [ qw( Eodymiumnai Neodymium ) ],
+ 61 => [ qw( Romethiumpai Promethium ) ],
+ 62 => [ qw( Amariumsai Samarium ) ],
+ 63 => [ qw( Uropiumeai Europium ) ],
+ 64 => [ qw( Adoliniumgai Gadolinium ) ],
+ 65 => [ qw( Erbiumtai Terbium ) ],
+ 66 => [ qw( Ysprosiumdai Dysprosium ) ],
+ 67 => [ qw( Olmiumhai Holmium ) ],
+ 68 => [ qw( Rbiumeai Erbium ) ],
+ 69 => [ qw( Huliumtai Thulium ) ],
+ 70 => [ qw( Tterbiumyai Ytterbium ) ],
+ 71 => [ qw( Utetiumlai Lutetium ) ],
+ 72 => [ qw( Afniumhai Hafnium ) ],
+ 73 => [ qw( Antalumtai Tantalum ) ],
+ 74 => [ qw( Ungstentai Tungsten ) ],
+ 75 => [ qw( Heniumrai Rhenium ) ],
+ 76 => [ qw( Smiumoai Osmium ) ],
+ 77 => [ qw( Ridiumiai Iridium ) ],
+ 78 => [ qw( Latinumpai Platinum ) ],
+ 79 => [ qw( Oldgai Gold ) ],
+ 80 => [ qw( Ercurymai Mercury ) ],
+ 81 => [ qw( Haliumtai Thalium ) ],
+ 82 => [ qw( Eadlai Lead ) ],
+ 83 => [ qw( Ismuthbai Bismuth ) ],
+ 84 => [ qw( Oloniumpai Polonium ) ],
+ 85 => [ qw( Statineaai Astatine ) ],
+ 86 => [ qw( Adonrai Radon ) ],
+ 87 => [ qw( Ranciumfai Francium ) ],
+ 88 => [ qw( Adiumrai Radium ) ],
+ 89 => [ qw( Ctinumaai Actinum ) ],
+ 90 => [ qw( Horiumtai Thorium ) ],
+ 91 => [ qw( Rotactiniumpai Protactinium ) ],
+ 92 => [ qw( Raniumuai Uranium ) ],
+ 93 => [ qw( Eptuniumnai Neptunium ) ],
+ 94 => [ qw( Lutoniumpai Plutonium ) ],
+ 95 => [ qw( Mericiumaai Americium ) ],
+ 96 => [ qw( Uriumcai Curium ) ],
+ 97 => [ qw( Erkeliumbai Berkelium ) ],
+ 98 => [ qw( Aliforniumcai Californium ) ],
+ 99 => [ qw( Insteiniumeai Einsteinium ) ],
+100 => [ qw( Ermiumfai Fermium ) ],
+101 => [ qw( Endeleviummai Mendelevium ) ],
+102 => [ qw( Obeliumnai Nobelium ) ],
+103 => [ qw( Awerenciumlai Lawerencium ) ],
+104 => [ qw( Utherfordiumrai Rutherfordium ) ],
+105 => [ qw( Ubniumdai Dubnium ) ],
+106 => [ qw( Eaborgiumsai Seaborgium ) ],
+107 => [ qw( Ohriumbai Bohrium ) ],
+108 => [ qw( Assiumhai Hassium ) ],
+109 => [ qw( Eitneriummai Meitnerium ) ]
 );
+
+{
+# There might be duplicates keys here, but it should never come out
+# with the wrong Z
+our %names_to_Z = ();
+foreach my $Z ( keys %names )
+	{
+	my @names = map { lc } @{ $names{$Z} };
+#	print STDERR "Got names [@names] for $Z\n";
+	@names_to_Z{@names} = ($Z) x @names;
+	}
+	
+#print STDERR Dumper( \%names_to_symbol ); use Data::Dumper;
+}
 
 {
 my @a = sort {$a <=> $b } keys %names;
@@ -262,28 +312,15 @@ $maximum_Z = pop @a;
 
 sub new
 	{
-	my $class = shift;
-	my $data  = shift;
+	my( $class, $data, $language ) = @_;
 
 	my $self = {};
 	bless $self, $class;
 
-	if( _is_Z $data )
-		{
-		$self->Z($data);
-		}
-	elsif( _is_symbol $data )
-		{
-		$self->symbol($data);
-		}
-	elsif( _is_name $data )
-		{
-		$self->name($data);
-		}
-	else
-		{
-		return;
-		}
+	if(    _is_Z      $data ) { $self->Z($data) }
+	elsif( _is_symbol $data ) { $self->symbol($data) }
+	elsif( _is_name   $data ) { $self->name($data) }
+	else                      { return }
 
 	return $self;
 	}
@@ -291,10 +328,10 @@ sub new
 sub Z
 	{
 	my $self = shift;
+	
+	return $self->{'Z'} unless @_;
 	my $data = shift;
 	
-	return $self->{'Z'} unless $data;
-
 	unless( _is_Z $data )
 		{
 		$self->error('$data is not a valid proton number');
@@ -311,13 +348,13 @@ sub Z
 sub name
 	{
 	my $self = shift;
+	
+	return $self->{'name'} unless @_;
 	my $data = shift;
 	
-	return $self->{'name'} unless $data;
-
-	unless( _is_name $data)
+	unless( _is_name $data )
 		{
-		$self->error('$data is not a valid name');
+		$self->error('$data is not a valid element name');
 		return;
 		}
 
@@ -331,13 +368,13 @@ sub name
 sub symbol
 	{
 	my $self = shift;
+	
+	return $self->{'symbol'} unless @_;
 	my $data = shift;
 	
-	return $self->{'symbol'} unless $data;
-
 	unless( _is_symbol $data )
 		{
-		$self->error('$data is not a valid chemical symbol');
+		$self->error('$data is not a valid element symbol');
 		return;
 		}
 
@@ -366,46 +403,38 @@ sub get_symbol
 
 sub _get_symbol_by_name
 	{
-	my $name = shift;
+	my $name = lc shift;
 	
 	return unless _is_name $name;
 
-	$name = _format_name $name;
+	my $Z = $names_to_Z{$name};
 
-	#not much we can do if they don't pass a proper name
-	foreach( keys %names )
-		{
-		next unless $name eq $names{$_};	
-		return $elements{$_}
-		}
-
-	return;
+	$elements{$Z}; 
 	}
 
 sub _get_symbol_by_Z
 	{
-	my $Z = shift;
+	return unless _is_Z $_[0];
 
-	#just in case we were passed a symbol rather
-	#then a number
-	return unless _is_Z $Z;
-
-	return $elements{$Z} if defined $elements{$Z};
-
-	return;
+	return $elements{$_[0]};
 	}
 
 sub get_name
 	{
-	my $thingy = shift;
-
+	my $thingy   = shift;
+	my $language = defined $_[0] ? $_[0] : $Default_language;
+	
 	#since we were asked for a name, we'll suppose that we were passed
 	#either a chemical symbol or a Z.
-	return _get_name_by_symbol($thingy) if _is_symbol $thingy;
-	return _get_name_by_Z($thingy)      if _is_Z $thingy;
+	return _get_name_by_symbol( $thingy, $language ) if _is_symbol $thingy;
+	return _get_name_by_Z(      $thingy, $language ) if _is_Z $thingy;
 
-	#maybe it's already a name
-	return _format_name $thingy if _is_name $thingy;
+	#maybe it's already a name, might have to translate it
+	if( _is_name $thingy )
+		{
+		my $Z = _get_Z_by_name( $thingy );
+		return _get_name_by_Z( $Z, $language );
+		}
 
 	#we were passed something wierd.  pretend we don't know anything.
 	return;
@@ -414,71 +443,60 @@ sub get_name
 
 sub _get_name_by_symbol
 	{
-	return _get_name_by_Z( _get_Z_by_symbol(shift) );
+	my $symbol   = shift;
+
+	return unless _is_symbol $symbol;
+	
+	my $language = defined $_[0] ? $_[0] : $Default_language;
+
+	my $Z = _get_Z_by_symbol($symbol);
+	
+	return _get_name_by_Z( $Z, $language );
 	}
 
 sub _get_name_by_Z
 	{
-	my $Z = shift;
-
+	my $Z        = shift;
+	my $language = defined $_[0] ? $_[0] : $Default_language;
+	
 	return unless _is_Z $Z;
 
 	#not much we can do if they don't pass a proper number
-	if( defined $names{$Z} )
-		{
-		return $names{$Z};
-		}
-	
-	return;
+	# XXX: check for language?
+	return $names{$Z}[$language];
 	}
 
 sub get_Z
 	{
 	my $thingy = shift;
 
+	croak "Can't call get_Z on object. Use Z instead" if ref $thingy;
+			
 	#since we were asked for a name, we'll suppose that we were passed
 	#either a chemical symbol or a Z.
-	return _get_Z_by_symbol($thingy) if _is_symbol $thingy;
-	return _get_Z_by_name($thingy)   if _is_name $thingy;
+	return _get_Z_by_symbol( $thingy ) if _is_symbol( $thingy );
+	return _get_Z_by_name( $thingy )   if _is_name( $thingy );
 
 	#maybe it's already a Z
-	return $thingy if _is_Z $thingy;
+	return $thingy                     if _is_Z( $thingy );
 
-	#we were passed something wierd.  pretend we don't know anything.
 	return;
 	}
 
+# gets the proton number for the name, no matter which language it
+# is in
 sub _get_Z_by_name
 	{
-	my $name = shift;
-	my ($key, $value);
+	my $name = lc shift;
 
-	while( ($key, $value) = each %names )
-		{
-		#do a case insensitive match
-		if( lc($value) eq lc($name) )
-			{
-			return $key;
-			}
-		}
-
-	return;
+	$names_to_Z{$name}; # language agnostic
 	}
 
 sub _get_Z_by_symbol
 	{
-	my $symbol = shift;
+	my $symbol = _format_symbol( shift );
 
-	#ensure that the first letter is upper case and that the
-	#others are lower case.  this way we can accept data from
-	#sources too dumb to know about chemical symbols or proper
-	#cases.  (and they exist.  i've seen them.)
-	$symbol =~ s/^(.)(.*)$/uc($1).lc($2)/e;
-
-	 if( defined $elements{$symbol} )
-		{
-		return $elements{$symbol};
-		}
+	return $elements{$symbol} if exists $elements{$symbol};
 
 	return;
 	}
@@ -490,46 +508,18 @@ sub _get_Z_by_symbol
 # functions guess what sort of input they received
 
 ########################################################################
-sub _is_name
-	{
-	my $data = shift;
-
-	#at least three alphabetic characters
-	return 0 unless $data =~ m/^[a-z][a-z][a-z][a-z]*$/i;
-
-	$data = _format_name $data;
-
-	foreach( keys %names )
-		{
-		return 1 if $data eq $names{$_};
-		}
-	
-	return 0;
-	}
+sub _is_name { exists $names_to_Z{ lc shift } ? 1 : 0	}
 
 ########################################################################
 sub _is_symbol
 	{
-	my $data = shift;
-
-	return 0 unless $data =~ m/^u?[a-z]?[a-z]$/i;
-
-	$data =~ s/^(.)(.*)/uc($1) . lc($2)/e;
-
-	return 1 if defined $elements{$data};
-
-	return 0;
+	my $symbol = _format_symbol( $_[0] );
+	
+	exists $elements{$symbol} ? 1 : ();
 	}
 
 ########################################################################
-sub _is_Z
-	{
-	my $data = shift;
-
-	return 0 unless $data =~ m/^1?\d?\d$/;
-	return 1 if $data > 0 and $data <= $maximum_Z;
-	return 0;
-	}
+sub _is_Z { $_[0] =~ /^[123456789]\d*\z/ && exists $elements{$_[0]}  }
 
 ########################################################################
 # _format_symbol
@@ -540,14 +530,7 @@ sub _is_Z
 #
 # there is no data checking involved.  this function doens't know
 # and doesn't care if the data are valid.  it just does its thing.
-sub _format_symbol
-	{
-	my $data = shift;
-	
-	$data =~ s/^(.)(.*)/uc($1).lc($2)/e;
-
-	return $data;
-	}
+sub _format_symbol { $_[0] =~ m/^[a-z]/i && ucfirst lc $_[0] }
 
 ########################################################################
 # _format_name
@@ -680,6 +663,11 @@ any of the three affects the other two.
 Create a new instance from either the atomic number, symbol, or
 element name.
 
+=item can( METHOD [, METHOD ... ] )
+
+Returns true if the package or object can respond to METHOD. This
+distinguishes between class and instance methods.
+
 =item Z
 
 Return the atomic number of the element.
@@ -700,7 +688,7 @@ These functions can be exported.  They are not exported by default.
 
 =over 4
 
-=item get_symbol()
+=item get_symbol( SYMBOL [, LANGUAGE] )
 
 This function attempts to return the symbol of the chemical element given
 either the chemical symbol, element name, or atmoic number.  The
@@ -730,7 +718,7 @@ will try its best despite the case of the input data).
 You can modify the symbols (e.g. you work for UCal ;) ) by changing
 the data at the end of this module.
 
-=item get_name()
+=item get_name( SYMBOL|NAME|Z [, LANGUAGE] )
 
 This function attempts to return the name the chemical element given
 either the chemical symbol, element name, or atomic number.  The
@@ -758,7 +746,7 @@ will try its best despite the case of the input data).
 You can modify the names (e.g. for different languages) by changing
 the data at the end of this module.
 
-=item get_Z()
+=item get_Z( SYMBOL|NAME|Z )
 
 This function attempts to return the atomic number of the chemical
 element given either the chemical symbol, element name, or atomic
