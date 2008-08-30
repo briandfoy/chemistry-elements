@@ -1,5 +1,10 @@
 Revision history for Perl extension Chemistry::Elements.
 
+1.05_02 - Fri Aug 29 20:17:59 2008
+	* Fix some element name typoes
+	* All of this is now in github
+	git://github.com/briandfoy/chemistry--elements.git
+
 1.05_01 - Sat Jun 28 19:34:40 2008
 	* Adding multi-language support
 	* This is a test version for the new tests and the big move
