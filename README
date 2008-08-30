@@ -1,73 +1,26 @@
-NAME
+$Id: README,v 1.1 2004/09/08 00:25:41 comdog Exp $
 
-  Chemistry::Elements - Perl extension for working the Chemical Elements 
+You can install this using in the usual Perl fashion
 
-SYNOPSIS
+	perl Makefile.PL
+	make
+	make test
+	make install
+	
+The documentation is in the module file.  Once you install
+the file, you can read it with perldoc.
 
-  use Chemistry::Elements qw(get_name get_Z get_symbol);
+	perldoc Chemistry::Elements
+	
+If you want to read it before you install it, you can use
+perldoc directly on the module file.
 
-  # the constructor can use different input
-  $element = new Chemistry::Elements $atomic_number;
-  $element = new Chemistry::Elements $chemical_symbol;
-  $element = new Chemistry::Elements $element_name;
+	perldoc  Elements.pm
+	
+This module is also in Github
 
-  # you can make up your own attributes by specifying
-  # a method (which is really AUTOLOAD)
-        $element->molar_mass(22.989) #sets the attribute
-  $MM = $element->molar_mass         #retrieves the value
+	git://github.com/briandfoy/chemistry--elements.git
 
-  # a short demonstartion script, chart_test, is included
-  # with the distribution.
-  
-DESCRIPTION
+Enjoy, 
 
-There are two parts to the module:  the object stuff and the
-exportable functions for use outside of the object stuff. 
-The exportable functions are discussed in EXPORTABLE
-FUNCTIONS.
-
-Chemistry::Elements provides an easy, object-oriented way to
-keep track of your chemical data.  Using either the atomic
-number, chemical symbol, or element name you can construct
-an Element object.  Once you have an element object, you can
-associate your data with the object by making up your own
-methods, which the AUTOLOAD function handles.  Since each
-chemist is likely to want to use his or her own data, or
-data for some unforesee-able property, this module does not
-try to be a repository for chemical data.
-
-EXPORTABLE FUNCTIONS
-
-These functions can be exported.  They are not exported by
-default.
-
-get_symbol()
-
-	This function attempts to return the symbol of the chemical
-	element given either the chemical symbol, element name, or
-	atmoic number.  The function does its best to interpret
-	inconsistent input data (e.g. chemcial names of mixed and
-	single case).
-
-get_name()
-
-	This function attempts to return the name the chemical
-	element given either the chemical symbol, element name, or
-	atomic number.  The function does its best to interpret
-	inconsistent input data (e.g. chemcial symbols of mixed and
-	single case).
-
-get_Z()
-
-	This function attempts to return the atomic number of the
-	chemical element given either the chemical symbol, element
-	name, or atomic number.  The function does its best to
-	interpret inconsistent input data (e.g. chemcial symbols of
-	mixed and single case).
-
-AUTHOR
-
-brian d foy <comdog@computerdog.com> 
-
-
-
+brian d foy, bdfoy@cpan.org
