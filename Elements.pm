@@ -592,9 +592,9 @@ Chemistry::Elements - Perl extension for working with Chemical Elements
   use Chemistry::Elements qw(get_name get_Z get_symbol);
 
   # the constructor can use different input
-  $element = new Chemistry::Elements $atomic_number;
-  $element = new Chemistry::Elements $chemical_symbol;
-  $element = new Chemistry::Elements $element_name;
+  $element = Chemistry::Elements->new( $atomic_number   );
+  $element = Chemistry::Elements->new( $chemical_symbol );
+  $element = Chemistry::Elements->new( $element_name    );
 
   # you can make up your own attributes by specifying
   # a method (which is really AUTOLOAD)
@@ -814,13 +814,19 @@ language or a different perspective on the heavy elements).  If
 anyone should make changes to the data, i would like to get a copy
 so that i can include it in future releases :)
 
+=head1 SOURCE AVAILABILITY
+
+The source for this module is in Github:
+
+	git://github.com/briandfoy/chemistry--elements.git
+
 =head1 AUTHOR
 
 brian d foy, C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2000-2007 brian d foy. All rights reserved.
+Copyright (c) 2000-2008 brian d foy. All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
