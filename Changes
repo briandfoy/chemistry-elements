@@ -28,10 +28,10 @@ Revision history for Perl module Chemistry::Elements
 	* Fixed up the distro to have tests and more documentation
 	* Added license info: this package is under the same terms as Perl itself
 
-97.1018  Sun Oct 19 00:34:18 1997
+0.97.1018  Sun Oct 19 00:34:18 1997
 	* original version; created by h2xs 1.18
 
-97.1102 Sun Nov  2 21:36:29 PST 1997
+0.97.1102 Sun Nov  2 21:36:29 PST 1997
 	* gutsy enough to actually release it for testing and comments
 	* working on a German version to be released RSN (just need a free hour)
 
