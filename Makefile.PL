@@ -1,12 +1,15 @@
-require 5.006;
+require 5.008;
 use strict;
 use warnings;
 
-my $github    = 'https://github.com/briandfoy/';
-my $main_file = 'lib/Chemistry/Elements.pm';
+use File::Spec::Functions qw(catfile);
+
+my $module    = 'Chemistry::Elements';
+my $github    = 'https://github.com/briandfoy/chemistry-elements';
+my $main_file = catfile( 'lib', split /::/, "$module.pm" );
 
 my %WriteMakefile = (
-	'NAME'			=> 'Chemistry::Elements',
+	'NAME'			=> $module,
 	'VERSION_FROM'	=> $main_file,
 	'ABSTRACT_FROM' => $main_file,
 	'LICENSE'		=> 'perl',
