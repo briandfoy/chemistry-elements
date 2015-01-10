@@ -47,7 +47,7 @@ my %WriteMakefile = (
 			},
 		},
 
-	clean  => { FILES    => q|Chemistry-Elements-*| },
+	clean => { FILES => "$dist-*" },
 	);
 
 sub arguments { \%WriteMakefile }
