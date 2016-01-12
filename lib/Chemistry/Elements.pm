@@ -12,9 +12,8 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK $AUTOLOAD
              %names_to_Z $Default_language %Languages
             );
 
-require Exporter;
+use Exporter qw(import);
 
-@ISA       = qw(Exporter);
 @EXPORT_OK = qw(get_Z get_symbol get_name);
 @EXPORT    = qw();
 $VERSION   = '1.06';
