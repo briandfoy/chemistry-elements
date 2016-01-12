@@ -39,23 +39,20 @@ my @object_methods = qw(new Z name symbol can);
 my %class_methods  = map { $_, 1 } @class_methods;
 my %object_methods = map { $_, 1 } @object_methods;
 
-sub can
-	{
+sub can {
 	my $thingy = shift;
 	my @methods = @_;
 
 	my $method_hash = blessed $thingy ? \%object_methods : \%class_methods ;
 
-	foreach my $method ( @methods )
-		{
+	foreach my $method ( @methods ) {
 		return unless exists $method_hash->{ $method };
 		}
 
 	return 1;
 	}
 
-sub _add_object_method # everyone gets it
-	{
+sub _add_object_method { # everyone gets it
 	$object_methods{ $_[1] } = 1;
 	}
 }
@@ -70,8 +67,7 @@ $debug = 0;
 $Default_language = $Languages{'English'};
 
 
-%names =
-(
+%names = (
   1 => [ qw( Ydrogenhai Hydrogen ) ],
   2 => [ qw( Eliumhai Helium ) ],
   3 => [ qw( Ithiumlai Lithium ) ],
@@ -187,8 +183,7 @@ $Default_language = $Languages{'English'};
 # There might be duplicates keys here, but it should never come out
 # with the wrong Z
 our %names_to_Z = ();
-foreach my $Z ( keys %names )
-	{
+foreach my $Z ( keys %names ) {
 	my @names = map { lc } @{ $names{$Z} };
 #	print STDERR "Got names [@names] for $Z\n";
 	@names_to_Z{@names} = ($Z) x @names;
@@ -314,8 +309,7 @@ $maximum_Z = pop @a;
 'Mt' => '109',  '109' => 'Mt'
 );
 
-sub new
-	{
+sub new {
 	my( $class, $data, $language ) = @_;
 
 	my $self = {};
@@ -329,15 +323,13 @@ sub new
 	return $self;
 	}
 
-sub Z
-	{
+sub Z {
 	my $self = shift;
 
 	return $self->{'Z'} unless @_;
 	my $data = shift;
 
-	unless( _is_Z $data )
-		{
+	unless( _is_Z $data ) {
 		$self->error('$data is not a valid proton number');
 		return;
 		}
@@ -349,15 +341,13 @@ sub Z
 	return $data;
 	}
 
-sub name
-	{
+sub name {
 	my $self = shift;
 
 	return $self->{'name'} unless @_;
 	my $data = shift;
 
-	unless( _is_name $data )
-		{
+	unless( _is_name $data ) {
 		$self->error('$data is not a valid element name');
 		return;
 		}
@@ -369,15 +359,13 @@ sub name
 	return $data;
 	}
 
-sub symbol
-	{
+sub symbol {
 	my $self = shift;
 
 	return $self->{'symbol'} unless @_;
 	my $data = shift;
 
-	unless( _is_symbol $data )
-		{
+	unless( _is_symbol $data ) {
 		$self->error('$data is not a valid element symbol');
 		return;
 		}
@@ -389,8 +377,7 @@ sub symbol
 	return $data;
 	}
 
-sub get_symbol
-	{
+sub get_symbol {
 	my $thingy = shift;
 
 	#since we were asked for a name, we'll suppose that we were passed
@@ -405,8 +392,7 @@ sub get_symbol
 	return;
 	}
 
-sub _get_symbol_by_name
-	{
+sub _get_symbol_by_name {
 	my $name = lc shift;
 
 	return unless _is_name $name;
@@ -416,15 +402,13 @@ sub _get_symbol_by_name
 	$elements{$Z};
 	}
 
-sub _get_symbol_by_Z
-	{
+sub _get_symbol_by_Z {
 	return unless _is_Z $_[0];
 
 	return $elements{$_[0]};
 	}
 
-sub get_name
-	{
+sub get_name {
 	my $thingy   = shift;
 	my $language = defined $_[0] ? $_[0] : $Default_language;
 
@@ -445,8 +429,7 @@ sub get_name
 	}
 
 
-sub _get_name_by_symbol
-	{
+sub _get_name_by_symbol {
 	my $symbol   = shift;
 
 	return unless _is_symbol $symbol;
@@ -458,8 +441,7 @@ sub _get_name_by_symbol
 	return _get_name_by_Z( $Z, $language );
 	}
 
-sub _get_name_by_Z
-	{
+sub _get_name_by_Z {
 	my $Z        = shift;
 	my $language = defined $_[0] ? $_[0] : $Default_language;
 
@@ -470,8 +452,7 @@ sub _get_name_by_Z
 	return $names{$Z}[$language];
 	}
 
-sub get_Z
-	{
+sub get_Z {
 	my $thingy = shift;
 
 	croak "Can't call get_Z on object. Use Z instead" if ref $thingy;
@@ -489,15 +470,13 @@ sub get_Z
 
 # gets the proton number for the name, no matter which language it
 # is in
-sub _get_Z_by_name
-	{
+sub _get_Z_by_name {
 	my $name = lc shift;
 
 	$names_to_Z{$name}; # language agnostic
 	}
 
-sub _get_Z_by_symbol
-	{
+sub _get_Z_by_symbol {
 	my $symbol = _format_symbol( shift );
 
 	return $elements{$symbol} if exists $elements{$symbol};
@@ -515,8 +494,7 @@ sub _get_Z_by_symbol
 sub _is_name { exists $names_to_Z{ lc shift } ? 1 : 0	}
 
 ########################################################################
-sub _is_symbol
-	{
+sub _is_symbol {
 	my $symbol = _format_symbol( $_[0] );
 
 	exists $elements{$symbol} ? 1 : ();
@@ -548,8 +526,7 @@ sub _format_symbol { $_[0] =~ m/^[a-z]/i && ucfirst lc $_[0] }
 #
 # this looks like _format_symbol, but it logically isn't.  someday
 # it might do something different than _format_symbol
-sub _format_name
-	{
+sub _format_name {
 	my $data = shift;
 
 	$data =~ s/^(.)(.*)/uc($1).lc($2)/e;
@@ -558,8 +535,7 @@ sub _format_name
 	}
 
 ########################################################################
-sub AUTOLOAD
-	{
+sub AUTOLOAD {
 	my $self = shift;
 	my $data = shift;
 
