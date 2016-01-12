@@ -175,7 +175,16 @@ $Default_language = $Languages{'English'};
 106 => [ qw( Eaborgiumsai Seaborgium ) ],
 107 => [ qw( Ohriumbai Bohrium ) ],
 108 => [ qw( Assiumhai Hassium ) ],
-109 => [ qw( Eitneriummai Meitnerium ) ]
+109 => [ qw( Eitneriummai Meitnerium ) ],
+110 => [ qw( Armstadtiumdai Darmstadtium ) ],
+111 => [ qw( Oentgeniumrai Roentgenium ) ],
+112 => [ qw( Operniciumcai Copernicium ) ],
+113 => [ qw( Nuntriumuai Ununtrium ) ],
+114 => [ qw( Leroviumfai Flerovium ) ],
+115 => [ qw( Nunpentiumuai Ununpentium ) ],
+116 => [ qw( Ivermoriumlai Livermorium ) ],
+117 => [ qw( Nunseptiumuai Ununseptium ) ],
+118 => [ qw( Nunoctiumuai Ununoctium ) ],
 );
 
 {
