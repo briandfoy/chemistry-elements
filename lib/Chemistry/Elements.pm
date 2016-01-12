@@ -18,7 +18,7 @@ use Exporter qw(import);
 
 @EXPORT_OK = qw(get_Z get_symbol get_name);
 @EXPORT    = qw();
-$VERSION   = '1.061';
+$VERSION   = '1.062';
 
 use subs qw(
 	_get_name_by_Z
@@ -654,8 +654,7 @@ You might want to use the string comparison in case the
 $string is not a number (in which case the comparison
 will be false save for the case when $string is undefined).
 
-	if( $string eq get_Z($string) )
-		{
+	if( $string eq get_Z($string) ) {
 		#stuff
 		}
 
