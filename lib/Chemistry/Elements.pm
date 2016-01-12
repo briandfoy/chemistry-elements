@@ -704,7 +704,7 @@ so that i can include it in future releases :)
 
 The source for this module is in Github:
 
-	git://github.com/briandfoy/chemistry--elements.git
+	https://github.com/briandfoy/chemistry-elements
 
 =head1 AUTHOR
 
