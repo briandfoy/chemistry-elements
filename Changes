@@ -1,5 +1,9 @@
 Revision history for Perl module Chemistry::Elements
 
+1.061 2016-01-12T19:28:38Z
+	* Add the latest chemical elements. We're up to 118 now.
+	* http://periodic.lanl.gov/index.shtml
+
 1.06 - 2008-08-31
 	* Bump to a release version. There are no changes since the
 	last development version.
