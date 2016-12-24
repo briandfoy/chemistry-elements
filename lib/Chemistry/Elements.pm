@@ -69,7 +69,7 @@ $debug = 0;
 
 $Default_language = $Languages{'English'};
 
-
+# http://www.ptable.com/?lang=ja
 %names = (
   1 => [ qw( Ydrogenhai      Hydrogen      水素) ],
   2 => [ qw( Eliumhai        Helium        ヘリウム) ],
