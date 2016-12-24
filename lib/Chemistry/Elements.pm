@@ -4,6 +4,7 @@ package Chemistry::Elements;
 
 use strict;
 use warnings;
+use utf8;
 no warnings;
 
 use Carp qw(croak carp);
@@ -63,121 +64,122 @@ $debug = 0;
 %Languages = (
 	'Pig Latin' => 0,
 	'English'   => 1,
+	'Japanese' => 2,
 	);
 
 $Default_language = $Languages{'English'};
 
 
 %names = (
-  1 => [ qw( Ydrogenhai Hydrogen ) ],
-  2 => [ qw( Eliumhai Helium ) ],
-  3 => [ qw( Ithiumlai Lithium ) ],
-  4 => [ qw( Erylliumbai Beryllium ) ],
-  5 => [ qw( Oronbai Boron ) ],
-  6 => [ qw( Arboncai Carbon ) ],
-  7 => [ qw( Itrogennai Nitrogen ) ],
-  8 => [ qw( Xygenoai Oxygen ) ],
-  9 => [ qw( Luorinefai Fluorine ) ],
- 10 => [ qw( Eonnai Neon ) ],
- 11 => [ qw( Odiumsai Sodium ) ],
- 12 => [ qw( Agnesiummai Magnesium ) ],
- 13 => [ qw( Luminiumaai Aluminium ) ],
- 14 => [ qw( Iliconsai Silicon ) ],
- 15 => [ qw( Hosphoruspai Phosphorus ) ],
- 16 => [ qw( Ulfursai Sulfur ) ],
- 17 => [ qw( Hlorinecai Chlorine ) ],
- 18 => [ qw( Rgonaai Argon ) ],
- 19 => [ qw( Otassiumpai Potassium ) ],
- 20 => [ qw( Alciumcai Calcium ) ],
- 21 => [ qw( Candiumsai Scandium ) ],
- 22 => [ qw( Itaniumtai Titanium ) ],
- 23 => [ qw( Anadiumvai Vanadium ) ],
- 24 => [ qw( Hromiumcai Chromium ) ],
- 25 => [ qw( Anganesemai Manganese ) ],
- 26 => [ qw( Roniai Iron ) ],
- 27 => [ qw( Obaltcai Cobalt ) ],
- 28 => [ qw( Ickelnai Nickel ) ],
- 29 => [ qw( Oppercai Copper ) ],
- 30 => [ qw( Inczai Zinc ) ],
- 31 => [ qw( Alliumgai Gallium ) ],
- 32 => [ qw( Ermaniumgai Germanium ) ],
- 33 => [ qw( Rsenicaai Arsenic ) ],
- 34 => [ qw( Eleniumsai Selenium ) ],
- 35 => [ qw( Rominebai Bromine ) ],
- 36 => [ qw( Ryptonkai Krypton ) ],
- 37 => [ qw( Ubidiumrai Rubidium ) ],
- 38 => [ qw( Trontiumsai Strontium ) ],
- 39 => [ qw( Ttriumyai Yttrium ) ],
- 40 => [ qw( Irconiumzai Zirconium ) ],
- 41 => [ qw( Iobiumnai Niobium ) ],
- 42 => [ qw( Olybdenummai Molybdenum ) ],
- 43 => [ qw( Echnetiumtai Technetium ) ],
- 44 => [ qw( Utheniumrai Ruthenium ) ],
- 45 => [ qw( Hodiumrai Rhodium ) ],
- 46 => [ qw( Alladiumpai Palladium ) ],
- 47 => [ qw( Ilversai Silver ) ],
- 48 => [ qw( Admiumcai Cadmium ) ],
- 49 => [ qw( Ndiumiai Indium ) ],
- 50 => [ qw( Intai Tin ) ],
- 51 => [ qw( Ntimonyaai Antimony ) ],
- 52 => [ qw( Elluriumtai Tellurium ) ],
- 53 => [ qw( Odineiai Iodine ) ],
- 54 => [ qw( Enonxai Xenon ) ],
- 55 => [ qw( Esiumcai Cesium ) ],
- 56 => [ qw( Ariumbai Barium ) ],
- 57 => [ qw( Anthanumlai Lanthanum ) ],
- 58 => [ qw( Eriumcai Cerium ) ],
- 59 => [ qw( Raesodymiumpai Praesodymium ) ],
- 60 => [ qw( Eodymiumnai Neodymium ) ],
- 61 => [ qw( Romethiumpai Promethium ) ],
- 62 => [ qw( Amariumsai Samarium ) ],
- 63 => [ qw( Uropiumeai Europium ) ],
- 64 => [ qw( Adoliniumgai Gadolinium ) ],
- 65 => [ qw( Erbiumtai Terbium ) ],
- 66 => [ qw( Ysprosiumdai Dysprosium ) ],
- 67 => [ qw( Olmiumhai Holmium ) ],
- 68 => [ qw( Rbiumeai Erbium ) ],
- 69 => [ qw( Huliumtai Thulium ) ],
- 70 => [ qw( Tterbiumyai Ytterbium ) ],
- 71 => [ qw( Utetiumlai Lutetium ) ],
- 72 => [ qw( Afniumhai Hafnium ) ],
- 73 => [ qw( Antalumtai Tantalum ) ],
- 74 => [ qw( Ungstentai Tungsten ) ],
- 75 => [ qw( Heniumrai Rhenium ) ],
- 76 => [ qw( Smiumoai Osmium ) ],
- 77 => [ qw( Ridiumiai Iridium ) ],
- 78 => [ qw( Latinumpai Platinum ) ],
- 79 => [ qw( Oldgai Gold ) ],
- 80 => [ qw( Ercurymai Mercury ) ],
- 81 => [ qw( Halliumtai Thallium ) ],
- 82 => [ qw( Eadlai Lead ) ],
- 83 => [ qw( Ismuthbai Bismuth ) ],
- 84 => [ qw( Oloniumpai Polonium ) ],
- 85 => [ qw( Statineaai Astatine ) ],
- 86 => [ qw( Adonrai Radon ) ],
- 87 => [ qw( Ranciumfai Francium ) ],
- 88 => [ qw( Adiumrai Radium ) ],
- 89 => [ qw( Ctiniumaai Actinium ) ],
- 90 => [ qw( Horiumtai Thorium ) ],
- 91 => [ qw( Rotactiniumpai Protactinium ) ],
- 92 => [ qw( Raniumuai Uranium ) ],
- 93 => [ qw( Eptuniumnai Neptunium ) ],
- 94 => [ qw( Lutoniumpai Plutonium ) ],
- 95 => [ qw( Mericiumaai Americium ) ],
- 96 => [ qw( Uriumcai Curium ) ],
- 97 => [ qw( Erkeliumbai Berkelium ) ],
- 98 => [ qw( Aliforniumcai Californium ) ],
- 99 => [ qw( Insteiniumeai Einsteinium ) ],
-100 => [ qw( Ermiumfai Fermium ) ],
-101 => [ qw( Endeleviummai Mendelevium ) ],
-102 => [ qw( Obeliumnai Nobelium ) ],
-103 => [ qw( Awerenciumlai Lawerencium ) ],
-104 => [ qw( Utherfordiumrai Rutherfordium ) ],
-105 => [ qw( Ubniumdai Dubnium ) ],
-106 => [ qw( Eaborgiumsai Seaborgium ) ],
-107 => [ qw( Ohriumbai Bohrium ) ],
-108 => [ qw( Assiumhai Hassium ) ],
-109 => [ qw( Eitneriummai Meitnerium ) ],
+  1 => [ qw( Ydrogenhai Hydrogen 水素) ],
+  2 => [ qw( Eliumhai Helium ヘリウム) ],
+  3 => [ qw( Ithiumlai Lithium リチウム) ],
+  4 => [ qw( Erylliumbai Beryllium ベリリウム) ],
+  5 => [ qw( Oronbai Boron ホウ素) ],
+  6 => [ qw( Arboncai Carbon 炭素) ],
+  7 => [ qw( Itrogennai Nitrogen 窒素) ],
+  8 => [ qw( Xygenoai Oxygen 酸素) ],
+  9 => [ qw( Luorinefai Fluorine フッ素) ],
+ 10 => [ qw( Eonnai Neon ネオン) ],
+ 11 => [ qw( Odiumsai Sodium ナトリウム) ],
+ 12 => [ qw( Agnesiummai Magnesium マグネシウム) ],
+ 13 => [ qw( Luminiumaai Aluminium アルミニウム) ],
+ 14 => [ qw( Iliconsai Silicon ケイ素) ],
+ 15 => [ qw( Hosphoruspai Phosphorus リン) ],
+ 16 => [ qw( Ulfursai Sulfur 硫黄) ],
+ 17 => [ qw( Hlorinecai Chlorine 塩素) ],
+ 18 => [ qw( Rgonaai Argon アルゴン) ],
+ 19 => [ qw( Otassiumpai Potassium カリウム) ],
+ 20 => [ qw( Alciumcai Calcium カルシウム) ],
+ 21 => [ qw( Candiumsai Scandium スカンジウム) ],
+ 22 => [ qw( Itaniumtai Titanium チタン) ],
+ 23 => [ qw( Anadiumvai Vanadium バナジウム) ],
+ 24 => [ qw( Hromiumcai Chromium クロム) ],
+ 25 => [ qw( Anganesemai Manganese マンガン) ],
+ 26 => [ qw( Roniai Iron 鉄) ],
+ 27 => [ qw( Obaltcai Cobalt コバルト) ],
+ 28 => [ qw( Ickelnai Nickel ニッケル) ],
+ 29 => [ qw( Oppercai Copper 銅) ],
+ 30 => [ qw( Inczai Zinc 亜鉛) ],
+ 31 => [ qw( Alliumgai Gallium ガリウム) ],
+ 32 => [ qw( Ermaniumgai Germanium ゲルマニウム) ],
+ 33 => [ qw( Rsenicaai Arsenic ヒ素) ],
+ 34 => [ qw( Eleniumsai Selenium セレン) ],
+ 35 => [ qw( Rominebai Bromine 臭素) ],
+ 36 => [ qw( Ryptonkai Krypton クリプトン) ],
+ 37 => [ qw( Ubidiumrai Rubidium ルビジウム) ],
+ 38 => [ qw( Trontiumsai Strontium ストロンチウム) ],
+ 39 => [ qw( Ttriumyai Yttrium イットリウム) ],
+ 40 => [ qw( Irconiumzai Zirconium ジルコニウム) ],
+ 41 => [ qw( Iobiumnai Niobium ニオブ) ],
+ 42 => [ qw( Olybdenummai Molybdenum モリブデン) ],
+ 43 => [ qw( Echnetiumtai Technetium テクネチウム) ],
+ 44 => [ qw( Utheniumrai Ruthenium ルテニウム) ],
+ 45 => [ qw( Hodiumrai Rhodium ロジウム) ],
+ 46 => [ qw( Alladiumpai Palladium パラジウム) ],
+ 47 => [ qw( Ilversai Silver 銀) ],
+ 48 => [ qw( Admiumcai Cadmium カドミウム) ],
+ 49 => [ qw( Ndiumiai Indium インジウム) ],
+ 50 => [ qw( Intai Tin スズ) ],
+ 51 => [ qw( Ntimonyaai Antimony アンチモン) ],
+ 52 => [ qw( Elluriumtai Tellurium テルル) ],
+ 53 => [ qw( Odineiai Iodine ヨウ素) ],
+ 54 => [ qw( Enonxai Xenon キセノン) ],
+ 55 => [ qw( Esiumcai Cesium セシウム) ],
+ 56 => [ qw( Ariumbai Barium バリウム) ],
+ 57 => [ qw( Anthanumlai Lanthanum ランタン) ],
+ 58 => [ qw( Eriumcai Cerium セリウム) ],
+ 59 => [ qw( Raesodymiumpai Praseodymium ) ],
+ 60 => [ qw( Eodymiumnai Neodymium ネオジム) ],
+ 61 => [ qw( Romethiumpai Promethium プロメチウム) ],
+ 62 => [ qw( Amariumsai Samarium サマリウム) ],
+ 63 => [ qw( Uropiumeai Europium ユウロピウム) ],
+ 64 => [ qw( Adoliniumgai Gadolinium ガドリニウム) ],
+ 65 => [ qw( Erbiumtai Terbium テルビウム) ],
+ 66 => [ qw( Ysprosiumdai Dysprosium ジスプロシウム) ],
+ 67 => [ qw( Olmiumhai Holmium ホルミウム) ],
+ 68 => [ qw( Rbiumeai Erbium エルビウム) ],
+ 69 => [ qw( Huliumtai Thulium ツリウム) ],
+ 70 => [ qw( Tterbiumyai Ytterbium イッテルビウム) ],
+ 71 => [ qw( Utetiumlai Lutetium ルテチウム) ],
+ 72 => [ qw( Afniumhai Hafnium ハフニウム) ],
+ 73 => [ qw( Antalumtai Tantalum タンタル) ],
+ 74 => [ qw( Ungstentai Tungsten タングステン) ],
+ 75 => [ qw( Heniumrai Rhenium レニウム) ],
+ 76 => [ qw( Smiumoai Osmium オスミウム) ],
+ 77 => [ qw( Ridiumiai Iridium イリジウム) ],
+ 78 => [ qw( Latinumpai Platinum 白金) ],
+ 79 => [ qw( Oldgai Gold 金) ],
+ 80 => [ qw( Ercurymai Mercury 水銀) ],
+ 81 => [ qw( Halliumtai Thallium タリウム) ],
+ 82 => [ qw( Eadlai Lead 鉛) ],
+ 83 => [ qw( Ismuthbai Bismuth ビスマス) ],
+ 84 => [ qw( Oloniumpai Polonium ポロニウム) ],
+ 85 => [ qw( Statineaai Astatine アスタチン) ],
+ 86 => [ qw( Adonrai Radon ラドン) ],
+ 87 => [ qw( Ranciumfai Francium フランシウム) ],
+ 88 => [ qw( Adiumrai Radium ラジウム) ],
+ 89 => [ qw( Ctiniumaai Actinium アクチニウム) ],
+ 90 => [ qw( Horiumtai Thorium トリウム) ],
+ 91 => [ qw( Rotactiniumpai Protactinium プロトアクチニウム) ],
+ 92 => [ qw( Raniumuai Uranium ウラン) ],
+ 93 => [ qw( Eptuniumnai Neptunium ネプツニウム) ],
+ 94 => [ qw( Lutoniumpai Plutonium プルトニウム) ],
+ 95 => [ qw( Mericiumaai Americium アメリシウム) ],
+ 96 => [ qw( Uriumcai Curium キュリウム) ],
+ 97 => [ qw( Erkeliumbai Berkelium バークリウム) ],
+ 98 => [ qw( Aliforniumcai Californium カリホルニウム) ],
+ 99 => [ qw( Insteiniumeai Einsteinium アインスタイニウム) ],
+100 => [ qw( Ermiumfai Fermium フェルミウム) ],
+101 => [ qw( Endeleviummai Mendelevium メンデレビウム) ],
+102 => [ qw( Obeliumnai Nobelium ノーベリウム) ],
+103 => [ qw( Awerenciumlai Lawrencium ローレンシウム) ],
+104 => [ qw( Utherfordiumrai Rutherfordium ラザホージウム) ],
+105 => [ qw( Ubniumdai Dubnium ドブニウム) ],
+106 => [ qw( Eaborgiumsai Seaborgium シーボーギウム) ],
+107 => [ qw( Ohriumbai Bohrium ボーリウム) ],
+108 => [ qw( Assiumhai Hassium ハッシウム) ],
+109 => [ qw( Eitneriummai Meitnerium マイトネリウム) ],
 110 => [ qw( Armstadtiumdai Darmstadtium ) ],
 111 => [ qw( Oentgeniumrai Roentgenium ) ],
 112 => [ qw( Operniciumcai Copernicium ) ],
@@ -491,7 +493,7 @@ Chemistry::Elements - Perl extension for working with Chemical Elements
 
 There are two parts to the module:  the object stuff and the exportable
 functions for use outside of the object stuff.  The exportable
-functions are discussed in EXPORTABLE FUNCTIONS.
+functions are discussed in L</Exportable functions>.
 
 Chemistry::Elements provides an easy, object-oriented way to
 keep track of your chemical data.  Using either the atomic
@@ -512,7 +514,7 @@ tries to create the object.
   $element = Chemistry::Elements->new( $chemical_symbol );
   $element = Chemistry::Elements->new( $element_name );
 
-once you have the object, you can define your own methods simply
+Once you have the object, you can define your own methods simply
 by using them.  Giving the method an argument (others will be
 ignored) creates an attribute with the method's name and
 the argument's value.
@@ -610,7 +612,7 @@ the data at the end of this module.
 This function attempts to return the name the chemical element given
 either the chemical symbol, element name, or atomic number.  The
 function does its best to interpret inconsistent input data (e.g.
-chemcial symbols of mixed and single case).
+chemical symbols of mixed and single case).
 
 	$name = get_name('Fe');     #$name is 'Iron'
 	$name = get_name('fe');     #$name is 'Iron'
@@ -618,7 +620,7 @@ chemcial symbols of mixed and single case).
 	$name = get_name('Iron');   #$name is 'Iron'
 	$name = get_name('iron');   #$name is 'Iron'
 
-If there is no Z can be found, nothing is returned.
+If no Z can be found, nothing is returned.
 
 Since this function will return the name if it is given a name,
 you can use it to test whether a string is a chemical element name
@@ -646,7 +648,7 @@ number.  The function does its best to interpret inconsistent input data
 	$name = get_Z('Iron');   #$name is 26
 	$name = get_Z('iron');   #$name is 26
 
-If there is no Z can be found, nothing is returned.
+If no Z can be found, nothing is returned.
 
 Since this function will return the Z if it is given a Z,
 you can use it to test whether a string is an atomic number.
