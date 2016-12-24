@@ -1,5 +1,9 @@
 Revision history for Perl module Chemistry::Elements
 
+1.064 2016-12-24T17:24:18Z
+	* Ben Bullock adds Japanese element names and fixes some sloppy
+	typing while he's in there.
+
 1.063 2016-12-24T03:46:31Z
 	* New names for 113, 115, 117, and 118
 	https://iupac.org/iupac-announces-the-names-of-the-elements-113-115-117-and-118/
