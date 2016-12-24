@@ -181,12 +181,12 @@ $Default_language = $Languages{'English'};
 110 => [ qw( Armstadtiumdai Darmstadtium ) ],
 111 => [ qw( Oentgeniumrai Roentgenium ) ],
 112 => [ qw( Operniciumcai Copernicium ) ],
-113 => [ qw( Nuntriumuai Ununtrium ) ],  # Nihonium (Nh)
+113 => [ qw( Ihoniumnai Nihonium ) ],  # Nihonium (Nh)
 114 => [ qw( Leroviumfai Flerovium ) ],
-115 => [ qw( Nunpentiumuai Ununpentium ) ], # Moscovium (Mc)
+115 => [ qw( Oscoviummai Moscovium ) ], # Moscovium (Mc)
 116 => [ qw( Ivermoriumlai Livermorium ) ],
-117 => [ qw( Nunseptiumuai Ununseptium ) ], # Tennessine (Ts)
-118 => [ qw( Nunoctiumuai Ununoctium ) ], # Oganesson (Og)
+117 => [ qw( Ennessinetai Tennessine ) ], # Tennessine (Ts)
+118 => [ qw( Ganessonoai Oganesson ) ], # Oganesson (Og)
 );
 
 {
