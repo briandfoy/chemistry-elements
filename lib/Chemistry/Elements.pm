@@ -185,10 +185,10 @@ $Default_language = $Languages{'English'};
 112 => [ qw( Operniciumcai   Copernicium   コペルニシウム) ],
 113 => [ qw( Ihoniumnai      Nihonium      ニホニウム) ],
 114 => [ qw( Leroviumfai     Flerovium     フレロビウム) ],
-115 => [ qw( Oscoviummai     Moscovium               ) ],
+115 => [ qw( Oscoviummai     Moscovium     モスコビウム) ],
 116 => [ qw( Ivermoriumlai   Livermorium   リバモリウム) ],
-117 => [ qw( Ennessinetai    Tennessine              ) ],
-118 => [ qw( Ganessonoai     Oganesson               ) ],
+117 => [ qw( Ennessinetai    Tennessine    テネシン) ],
+118 => [ qw( Ganessonoai     Oganesson     オガネソン) ],
 );
 
 {
