@@ -1,5 +1,9 @@
 Revision history for Perl module Chemistry::Elements
 
+1.063 2016-12-24T03:46:31Z
+	* New names for 13, 115, 117, and 118
+	https://iupac.org/iupac-announces-the-names-of-the-elements-113-115-117-and-118/
+
 1.062 2016-01-12T19:38:47Z
 	* Fix the GitHub reference
 
