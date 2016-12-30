@@ -1,5 +1,8 @@
 Revision history for Perl module Chemistry::Elements
 
+1.071 2016-12-30T20:11:12Z
+	* Version adjustment to be greater than what's on CPAN
+
 1.065 2016-12-24T18:07:06Z
 	* Add the rest of the Japanese element names
 
