@@ -673,7 +673,7 @@ simply pretend that there is a molar_mass method:
 
 	$element->molar_mass($MM); #add molar mass datum in $MM to object
 
-Similiarly, you can retrieve previously set values by not specifying
+Similarly, you can retrieve previously set values by not specifying
 an argument to your pretend method:
 
 	$datum = $element->molar_mass();
