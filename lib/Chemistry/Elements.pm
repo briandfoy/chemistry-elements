@@ -64,7 +64,7 @@ $debug = 0;
 %Languages = (
 	'Pig Latin' => 0,
 	'English'   => 1,
-	'Japanese' => 2,
+	'Japanese'  => 2,
 	);
 
 $Default_language = $Languages{'English'};
