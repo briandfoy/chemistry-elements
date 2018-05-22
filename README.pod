@@ -32,17 +32,8 @@ name instead of the file location:
 
 	% perldoc Chemistry::Elements
 
-You can read the documentation and inspect the meta data on one of the
-CPAN web interfaces, such as L<CPAN Search|http://search.cpan.org/dist/Chemistry-Elements> or
-L<MetaCPAN|http://www.metacpan.org/module/Chemistry::Elements>:
-
-=over 4
-
-=item *	L<http://search.cpan.org/dist/Chemistry-Elements>
-
-=item *	L<http://www.metacpan.org/module/Chemistry::Elements>
-
-=back
+You can read the documentation and inspect the meta data on
+L<MetaCPAN|http://www.metacpan.org/module/Chemistry::Elements>.
 
 The standard module documentation has example uses in the SYNOPSIS
 section, but you can also look in the I<examples/> directory (if it's
