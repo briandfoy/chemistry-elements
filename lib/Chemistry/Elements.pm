@@ -19,7 +19,7 @@ use Exporter qw(import);
 
 @EXPORT_OK = qw(get_Z get_symbol get_name);
 @EXPORT    = qw();
-$VERSION   = '1.072';
+our $VERSION   = '1.073';
 
 use subs qw(
 	_get_name_by_Z
