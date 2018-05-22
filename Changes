@@ -1,5 +1,8 @@
 Revision history for Perl module Chemistry::Elements
 
+1.073 2018-05-22T13:57:23Z
+	* Change to Artistic License 2.0.
+
 1.072 2017-08-06T06:08:52Z
 	* Update the new heavy element symbols.
 
