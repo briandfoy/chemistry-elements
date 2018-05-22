@@ -10,15 +10,15 @@ no warnings;
 use Carp qw(croak carp);
 use Scalar::Util qw(blessed);
 
-use vars qw($VERSION @ISA @EXPORT @EXPORT_OK $AUTOLOAD
+use vars qw( @ISA $AUTOLOAD
              $debug %names %elements $maximum_Z
              %names_to_Z $Default_language %Languages
             );
 
 use Exporter qw(import);
 
-@EXPORT_OK = qw(get_Z get_symbol get_name);
-@EXPORT    = qw();
+our @EXPORT_OK = qw(get_Z get_symbol get_name);
+our @EXPORT    = qw();
 our $VERSION   = '1.073';
 
 use subs qw(
