@@ -6,7 +6,7 @@ install:
   - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
   - echo %PATH%
   - dir
-  - cd C:\projects\%APPVEYOR_PROJECT_NAME%
+  - cd C:\projects\%APPVEYOR_BUILD_FOLDER%
   - cpanm --installdeps .
 build_script:
   - perl Makefile.PL
