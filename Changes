@@ -37,7 +37,7 @@ Revision history for Perl module Chemistry::Elements
 1.05_02 - 2008-08-29
 	* Fix some element name typoes
 	* All of this is now in github
-	git://github.com/briandfoy/chemistry--elements.git
+	https://github.com/briandfoy/chemistry-elements.git
 
 1.05_01 - 2008-06-28
 	* Adding multi-language support
