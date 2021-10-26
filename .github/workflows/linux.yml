@@ -38,6 +38,9 @@ jobs:
               run: uname -a
             - name: Perl version check
               run: perl -V
+            - name: Setup environment
+              run: |
+                echo "PERL_LWP_SSL_VERIFY_HOSTNAME=0" >> $GITHUB_ENV
             - name: Install cpanm and multiple modules
               run: |
                 curl -L https://cpanmin.us | perl - App::cpanminus
