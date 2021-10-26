@@ -21,7 +21,7 @@ on:
 jobs:
     perl:
         runs-on: macOS-latest
-
+        environment: testing
         steps:
             - uses: actions/checkout@v2
             - name: Platform check

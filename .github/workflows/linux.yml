@@ -22,6 +22,7 @@ on:
 jobs:
     perl:
         runs-on: ${{ matrix.os }}
+        environment: testing
         strategy:
           matrix:
             os:
@@ -63,6 +64,8 @@ jobs:
                 make disttest
             - name: Run coverage tests
               if: env.PERL_VERSION != 'v5.8'
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                 cpan -M https://www.cpan.org -T Devel::Cover Devel::Cover::Report::Coveralls
                 cover -test -report coveralls
