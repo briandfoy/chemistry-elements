@@ -1,5 +1,11 @@
 Revision history for Perl module Chemistry::Elements
 
+1.075 2021-10-26T17:12:19Z
+	* Minor fix to Changes file because I had the first two dates in the
+	wrong order
+	* On the repo side, fixed up the GitHub actions to do more testing
+	and to report to Coveralls. It's all changed since last I looked.
+
 1.074 2021-01-15T08:26:43Z
 	* freshen distro, remove Travis CI, add Github Actions
 
