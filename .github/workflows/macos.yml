@@ -3,11 +3,21 @@ name: macos
 on:
     push:
         branches:
-            - '*'
+            - '**'
+            - '!**windows**'
+            - '!**linux**'
         tags-ignore:
-            - '*'
+            - 'release-*'
+        paths-ignore:
+            - '.appveyor.yml'
+            - '.github/workflows/ubuntu.yml'
+            - '.github/workflows/windows.yml'
+            - '.gitignore'
+            - '.releaserc'
+            - 'Changes'
+            - 'LICENSE'
+            - 'README.pod'
         pull_request:
-
 jobs:
     perl:
         runs-on: macOS-latest
@@ -17,13 +27,15 @@ jobs:
             - name: Platform check
               run: uname -a
             - name: Set up Perl
-              run: brew install perl
+              run: |
+                brew install perl
+                perl -v | perl -0777 -ne 'm/(v5\.\d+)/ && print "PERL_VERSION=$1"' >> $GITHUB_ENV
             - name: Perl version check
               run: perl -V
             - name: Prepare cpan
               run: |
                 openssl version
-                cpan -M https://www.cpan.org -T Net::SSLeay IO::Socket::SSL ExtUtils::MakeMaker
+                cpan -M https://www.cpan.org -T Net::SSLeay IO::Socket::SSL LWP::Protocol::https ExtUtils::MakeMaker
             - name: Install dependencies
               run: |
                 cpan -M https://www.cpan.org -T .
@@ -31,3 +43,18 @@ jobs:
               run: |
                 perl Makefile.PL
                 make test
+            - name: Run tests in parallel
+              run: |
+                perl Makefile.PL
+                HARNESS_OPTIONS=j10 make test
+            - name: Run distribution tests
+              run: |
+                perl Makefile.PL
+                make disttest
+            - name: Run coverage tests
+              if: env.PERL_VERSION != 'v5.8'
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                cpan -M https://www.cpan.org -T Devel::Cover Devel::Cover::Report::Coveralls
+                cover -test -report coveralls

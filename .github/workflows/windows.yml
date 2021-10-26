@@ -3,11 +3,21 @@ name: windows
 on:
     push:
         branches:
-            - '*'
+            - '**'
+            - '!**linux**'
+            - '!**macos**'
         tags-ignore:
-            - '*'
+            - 'release-*'
+        paths-ignore:
+            - '.appveyor.yml'
+            - '.github/workflows/macos.yml'
+            - '.github/workflows/ubuntu.yml'
+            - '.gitignore'
+            - '.releaserc'
+            - 'Changes'
+            - 'LICENSE'
+            - 'README.pod'
         pull_request:
-
 jobs:
     perl:
         runs-on: ${{ matrix.os }}
@@ -33,3 +43,17 @@ jobs:
               run: |
                 perl Makefile.PL
                 make test
+            - name: Run tests in parallel
+              env:
+                HARNESS_OPTIONS: j10
+              run: |
+                perl Makefile.PL
+                make test
+            - name: Run distribution tests
+              run: |
+                perl Makefile.PL
+                make disttest
+            - name: Run coverage tests
+              run: |
+                cpan -M https://www.cpan.org -T Devel::Cover Devel::Cover::Report::Coveralls
+                cover -test -report coveralls
