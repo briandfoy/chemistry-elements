@@ -12,9 +12,9 @@
 
 =for HTML <a href='https://coveralls.io/github/briandfoy/chemistry-elements?branch=master'><img src='https://coveralls.io/repos/github/briandfoy/chemistry-elements/badge.svg?branch=master' alt='Coverage Status' /></a>
 
-=for HTML <a href="https://github.com/briandfoy/chemistry-elements/blob/master/LICENSE"><img src="https://img.shields.io/cpan/l/Chemistry::Elements.svg" /></a>
+=for HTML <a href="https://github.com/briandfoy/chemistry-elements/blob/master/LICENSE"><img src="https://img.shields.io/cpan/l/Chemistry-Elements.svg" /></a>
 
-=for HTML <a href="https://metacpan.org/pod/Chemistry::Elements"><img src="https://img.shields.io/cpan/v/Chemistry::Elements.svg" /></A>
+=for HTML <a href="https://metacpan.org/pod/Chemistry::Elements"><img src="https://img.shields.io/cpan/v/Chemistry-Elements.svg" /></A>
 
 =head1 The Chemistry::Elements module
 
