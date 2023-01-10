@@ -1,5 +1,9 @@
 Revision history for Perl module Chemistry::Elements
 
+1.076 2023-01-10T15:33:32Z
+	* remove some internal cruft noted by Gene Boggs. No meaningful
+	changes and no need to update unless you want to.
+
 1.075 2021-10-26T17:12:19Z
 	* Minor fix to Changes file because I had the first two dates in the
 	wrong order
