@@ -10,8 +10,8 @@ no warnings;
 use Carp qw(croak carp);
 use Scalar::Util qw(blessed);
 
-use vars qw( @ISA $AUTOLOAD
-             $debug %names %elements $maximum_Z
+use vars qw( $AUTOLOAD
+             $debug %names $maximum_Z
              %names_to_Z $Default_language %Languages
             );
 
