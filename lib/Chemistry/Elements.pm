@@ -240,7 +240,7 @@ sub Z {
 	my $data = shift;
 
 	unless( _is_Z $data ) {
-		$self->error('$data is not a valid proton number');
+		$self->error("$data is not a valid proton number");
 		return;
 		}
 
@@ -258,7 +258,7 @@ sub name {
 	my $data = shift;
 
 	unless( _is_name $data ) {
-		$self->error('$data is not a valid element name');
+		$self->error("$data is not a valid element name");
 		return;
 		}
 
@@ -276,7 +276,7 @@ sub symbol {
 	my $data = shift;
 
 	unless( _is_symbol $data ) {
-		$self->error('$data is not a valid element symbol');
+		$self->error("$data is not a valid element symbol");
 		return;
 		}
 
