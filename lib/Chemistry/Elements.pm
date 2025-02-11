@@ -36,8 +36,8 @@ use subs qw(
 	);
 
 BEGIN {
-my @class_methods  = qw(can isa);
-my @object_methods = qw(new Z name symbol can);
+my @class_methods  = qw(can isa new);
+my @object_methods = qw(new Z name symbol can error);
 my %class_methods  = map { $_, 1 } @class_methods;
 my %object_methods = map { $_, 1 } @object_methods;
 
